@@ -1,5 +1,5 @@
 const initState = {
-  posts: [],
+  posts: [{ id: 1, title: 'post one', content: 'this is post one' }],
 }
 const postReducer = (state = initState, action) => {
   switch (action.type) {

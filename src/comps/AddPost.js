@@ -1,77 +1,52 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { addPost } from '../store/actions/postAction'
 import { v4 as uuidv4 } from 'uuid'
 
-class AddPost extends Component {
-  state = {
-    post: {
-      id:'',
-      title: '',
-      content: '',
-    },
-  }
+export const AddPost = () => {
+  const initPost = { id: '', title: '', content: '' }
+  const [post, setPost] = useState(initPost)
 
-  handleChange = (e) => {
-    this.setState({
-      post: {
-        ...this.state.post,
-        [e.target.name]: e.target.value,
-      },
-    })
+  const dispatch = useDispatch()
+
+  const handleChange = (e) => {
+    setPost({ ...post, [e.target.name]: e.target.value })
   }
-  handleSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault()
-    this.props.cretePost(this.state.post)
-    this.setState({
-      post: {
-        id: uuidv4(),
-        title: '',
-        content: '',
-      },
-    })
+    dispatch(addPost(post))
+    setPost({ id: uuidv4(), title: '', content: '' })
   }
 
-  render() {
-    return (
-      <div className="container" style={{ margin: '4rem auto' }}>
-        <h5 className="blue-text center-align">FourBlog</h5>
-        <form onSubmit={this.handleSubmit}>
-          <div className="input-field">
-            <label htmlFor="post_title">Title</label>
-            <input
-              value={this.state.post.title}
-              onChange={this.handleChange}
-              type="text"
-              name="title"
-            />
-          </div>
-          <div className="input-field">
-            <label htmlFor="post_content">Content</label>
-            <textarea
-              value={this.state.post.content}
-              onChange={this.handleChange}
-              name="content"
-              className="materialize-textarea"
-            ></textarea>
-          </div>
-          <div className="input-field">
-            <button className="btn blue">
-              Submit
-              <i className="material-icons right">send</i>
-            </button>
-          </div>
-        </form>
-      </div>
-    )
-  }
+  return (
+    <div className="container" style={{ margin: '4rem auto' }}>
+      <h5 className="blue-text center-align">FourBlog</h5>
+      <form onSubmit={handleSubmit}>
+        <div className="input-field">
+          <label htmlFor="post_title">Title</label>
+          <input
+            value={post.title}
+            onChange={handleChange}
+            type="text"
+            name="title"
+          />
+        </div>
+        <div className="input-field">
+          <label htmlFor="post_content">Content</label>
+          <textarea
+            value={post.content}
+            onChange={handleChange}
+            name="content"
+            className="materialize-textarea"
+          ></textarea>
+        </div>
+        <div className="input-field">
+          <button className="btn blue">
+            Submit
+            <i className="material-icons right">send</i>
+          </button>
+        </div>
+      </form>
+    </div>
+  )
 }
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    cretePost: (post) => {
-      dispatch({ type: 'ADD_POST', post })
-    },
-  }
-}
-
-export default connect(null, mapDispatchToProps)(AddPost)

@@ -1,5 +1,5 @@
-import AddPost from './AddPost'
-import PostList from './PostList'
+import {AddPost} from './AddPost'
+import {PostList} from './PostList'
 
 const Homepage = () => {
   return (
