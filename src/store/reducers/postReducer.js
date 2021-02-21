@@ -13,6 +13,10 @@ const postReducer = (state = initState, action) => {
       return {
         posts: newPost,
       }
+    case 'ADD_POST':
+      return {
+        posts: [action.post,npm...state.posts],
+      }
     default:
       return state
   }

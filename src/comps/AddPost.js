@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+
 
 class AddPost extends Component {
   state = {
@@ -19,11 +21,11 @@ class AddPost extends Component {
   }
   handleSubmit = (e) => {
     e.preventDefault()
-    console.log(this.state.post)
+    this.props.cretePost(this.state.post)
     this.setState({
       post: {
         title: '',
-        content: ''
+        content: '',
       },
     })
   }
@@ -63,4 +65,12 @@ class AddPost extends Component {
   }
 }
 
-export default AddPost
+const mapDispatchToProps = (dispatch) => {
+  return {
+    cretePost: (post) => {
+      dispatch({ type: 'ADD_POST', post })
+    },
+  }
+}
+
+export default connect(null, mapDispatchToProps)(AddPost)
