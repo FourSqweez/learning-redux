@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-
+import { v4 as uuidv4 } from 'uuid'
 
 class AddPost extends Component {
   state = {
     post: {
-      id: 4,
+      id:'',
       title: '',
       content: '',
     },
@@ -24,6 +24,7 @@ class AddPost extends Component {
     this.props.cretePost(this.state.post)
     this.setState({
       post: {
+        id: uuidv4(),
         title: '',
         content: '',
       },
