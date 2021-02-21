@@ -27,6 +27,7 @@ class PostDetail extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    //delete post
     deletePost: (id) => dispatch({ type: 'DELETE_POST', id }),
   }
 }
